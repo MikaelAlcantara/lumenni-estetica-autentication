@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="../styles/variaveis.css" />
   <link rel="stylesheet" href="login.css">
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
-
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script> <!-- Adicionando Firestore -->
 </head>
 <body>
   <header>
@@ -45,10 +44,11 @@
   </footer>
 
   <script>
-    // Cfg Firebase
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
       authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+      databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
       projectId: "lumenni-estetica-autentication",
       storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
       messagingSenderId: "481878336776",
@@ -59,6 +59,7 @@
     // Inicializa Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const db = firebase.firestore();  // Acesso ao Firestore
 
     // Evento do formulário de login
     document.getElementById('login-form').addEventListener('submit', async function(e) {
@@ -67,9 +68,27 @@
       const password = e.target.password.value;
 
       try {
-        await auth.signInWithEmailAndPassword(email, password);
-        // Login bem-sucedido, redireciona
-        window.location.href = 'painel-paciente.html';
+        // Fazendo login
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Verifica status do usuário no Firestore
+        const docRef = db.collection('users').doc(user.uid);
+        const doc = await docRef.get();
+
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.status !== 'aprovado') {
+            alert('Seu cadastro ainda está pendente de aprovação. Aguarde contato.');
+            await auth.signOut(); // Desloga o usuário pendente
+            return;
+          }
+          // Se aprovado, redireciona para o painel
+          window.location.href = 'painel-paciente.html';
+        } else {
+          alert('Dados do usuário não encontrados.');
+          await auth.signOut();  // Desloga o usuário
+        }
       } catch (error) {
         alert('Erro ao fazer login: ' + error.message);
       }

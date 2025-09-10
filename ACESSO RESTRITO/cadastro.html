@@ -8,10 +8,9 @@
   <link rel="stylesheet" href="cadastro.css">
 
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
-
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
 </head>
 <body>
   <header>
@@ -53,10 +52,11 @@
   </footer>
 
   <script>
-    // Config Firebase mesmo do login
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
       authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+      databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
       projectId: "lumenni-estetica-autentication",
       storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
       messagingSenderId: "481878336776",
@@ -64,6 +64,7 @@
       measurementId: "G-B433W9ZE86"
     };
 
+    // Inicializa Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
@@ -81,23 +82,24 @@
       }
 
       try {
-        // Cria usuário no Firebase Auth
+        // Cria o usuário no Firebase Auth
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
 
-        // Salva dados adicionais no Firestore como id
+        // Salva o usuário no Firestore com o status pendente
         await db.collection('users').doc(user.uid).set({
           nome: nome,
           email: email,
           pontosFidelidade: 600,
           avaliacoesMedia: 4.8,
           procedimentosRealizados: 3,
-          proximoAgendamento: '15/10/2023 - 14:30'
+          proximoAgendamento: '15/10/2023 - 14:30',
+          status: 'pendente'  // Status inicial como pendente
         });
 
         alert(`Cadastro realizado para: ${nome}`);
 
-        // Redirecionamento
+        // Redireciona para login
         window.location.href = 'login.html';
 
       } catch (error) {

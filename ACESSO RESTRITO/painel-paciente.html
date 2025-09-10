@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
 </head>
 <body>
-  <header>  
+  <header>
     <nav>
       <h1>Painel do Paciente</h1>
       <img src="../src/img/LOGO MENU LUMENNI.png" alt="Logo lumenni estetica avançada">
@@ -23,140 +23,10 @@
   </header>
 
   <main>
-    <!-- Seção de Tratamentos -->
-    <section id="tratamentos">
-      <h2>Tratamentos Pós-Procedimento</h2>
-      <p>
-        Aqui você encontrará orientações personalizadas para sua recuperação pós-cirurgia ou procedimento estético.
-        Siga as recomendações para garantir o melhor resultado e evitar complicações.
-      </p>
-      <ul>
-        <li><i class="fas fa-sun"></i> Evite exposição solar direta nas áreas tratadas.</li>
-        <li><i class="fas fa-tint"></i> Mantenha a pele hidratada com os produtos indicados.</li>
-        <li><i class="fas fa-dumbbell"></i> Não realize atividades físicas intensas nas primeiras semanas.</li>
-        <li><i class="fas fa-calendar-check"></i> Compareça às consultas de acompanhamento conforme agendado.</li>
-      </ul>
-    </section>
-
-    <!-- Seção de Agenda -->
-    <section id="agenda">
-      <h2>Agenda de Retornos Médicos</h2>
-      <table class="agenda">
-        <thead>
-          <tr>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Procedimento</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10/07/2024</td>
-            <td>14:00</td>
-            <td>Consulta de Retorno</td>
-            <td class="confirmado">Confirmado</td>
-          </tr>
-          <tr>
-            <td>24/07/2024</td>
-            <td>09:30</td>
-            <td>Revisão Pós-Cirurgia</td>
-            <td class="confirmado">Confirmado</td>
-          </tr>
-          <tr>
-            <td>07/08/2024</td>
-            <td>11:00</td>
-            <td>Avaliação Estética</td>
-            <td class="agendado">Agendado</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!--Painel do Cliente -->
+    <!-- Seções do Painel -->
     <section id="painel-cliente">
       <h2>Painel do Cliente</h2>
-
-      <div class="dashboard">
-        <div class="card">
-          <i class="fas fa-calendar-alt icon"></i>
-          <h3>Próximo Agendamento</h3>
-          <span>Carregando...</span>
-        </div>
-        <div class="card">
-          <i class="fas fa-stethoscope icon"></i>
-          <h3>Procedimentos Realizados</h3>
-          <span>Carregando...</span>
-        </div>
-        <div class="card">
-          <i class="fas fa-gift icon"></i>
-          <h3>Pontos de Fidelidade</h3>
-          <span>Carregando...</span>
-        </div>
-        <div class="card">
-          <i class="fas fa-star icon"></i>
-          <h3>Avaliação Média</h3>
-          <span>Carregando...</span>
-        </div>
-      </div>
-
-      <div class="info-sections">
-        <div class="info-box">
-          <h4>Últimos Procedimentos</h4>
-          <ul>
-            <li>
-              <strong>Tratamento Facial Anti-idade</strong><br>
-              <small>15/09/2023 - Dra. Ana</small> <span class="status">Concluído</span>
-            </li>
-            <li>
-              <strong>Massagem Linfática</strong><br>
-              <small>22/09/2023 - João</small> <span class="status">Concluído</span>
-            </li>
-            <li>
-              <strong>Remoção de Tatuagem</strong><br>
-              <small>01/10/2023 - Dra. Carla</small> <span class="status">Concluído</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="info-box">
-          <h4>Próximos Agendamentos</h4>
-          <ul>
-            <li>
-              <strong>Consulta para Botox</strong><br>
-              <small>15/10/2023 14:30 - Dra. Ana</small><br>
-              <span class="unidade">Unidade Copacabana</span>
-            </li>
-            <li>
-              <strong>Avaliação pós-tratamento</strong><br>
-              <small>22/10/2023 10:00 - João</small><br>
-              <span class="unidade">Unidade Leblon</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Cuidados Estéticos -->
-    <section id="cuidados-esteticos">
-      <h2>Cuidados Estéticos</h2>
-      <ul>
-        <li><i class="fas fa-sun"></i> Uso diário de protetor solar com fator adequado.</li>
-        <li><i class="fas fa-water"></i> Hidratação constante, especialmente após procedimentos.</li>
-        <li><i class="fas fa-smog"></i> Evitar exposição prolongada ao sol e ambientes poluídos.</li>
-        <li><i class="fas fa-apple-alt"></i> Alimentação equilibrada e ingestão adequada de água.</li>
-      </ul>
-    </section>
-
-    <!-- Cuidados de Saúde -->
-    <section id="cuidados-saude">
-      <h2>Cuidados de Saúde</h2>
-      <ul>
-        <li><i class="fas fa-bed"></i> Mantenha uma rotina de sono adequada.</li>
-        <li><i class="fas fa-ban"></i> Evite o consumo excessivo de álcool e tabaco.</li>
-        <li><i class="fas fa-walking"></i> Pratique exercícios físicos leves conforme orientação médica.</li>
-        <li><i class="fas fa-pills"></i> Use medicamentos prescritos corretamente.</li>
-      </ul>
+      <!-- Seu conteúdo do painel aqui... -->
     </section>
   </main>
 
@@ -165,17 +35,6 @@
   </footer>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
-      authDomain: "lumenni-estetica-autentication.firebaseapp.com",
-      projectId: "lumenni-estetica-autentication",
-      storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
-      messagingSenderId: "481878336776",
-      appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
-      measurementId: "G-B433W9ZE86"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
@@ -186,25 +45,19 @@
         return;
       }
 
-      try {
-        const docRef = db.collection('users').doc(user.uid);
-        const doc = await docRef.get();
+      // Verifica o status do usuário no Firestore
+      const docRef = db.collection('users').doc(user.uid);
+      const doc = await docRef.get();
 
-        if (doc.exists) {
-          const data = doc.data();
-
-          // Atualiza os cards do painel
-          const cards = document.querySelectorAll('#painel-cliente .dashboard .card span');
-          cards[0].textContent = data.proximoAgendamento || 'Sem agendamento';
-          cards[1].textContent = data.procedimentosRealizados || '0';
-          cards[2].textContent = data.pontosFidelidade || '0';
-          cards[3].textContent = data.avaliacoesMedia || '0';
-        } else {
-          alert('Dados do usuário não encontrados.');
-        }
-      } catch (error) {
-        console.error('Erro ao carregar dados do usuário:', error);
+      if (doc.exists && doc.data().status !== 'aprovado') {
+        alert('Seu cadastro está pendente de aprovação.');
+        await auth.signOut(); // Desloga o usuário pendente
+        window.location.href = 'login.html';
+        return;
       }
+
+      // Usuário aprovado, mostra o conteúdo do painel
+      console.log('Usuário aprovado:', user.email);
     });
 
     document.getElementById('logout-btn').addEventListener('click', () => {

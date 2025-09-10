@@ -47,7 +47,7 @@
 
  <script>
   // Configuração do Firebase
-  const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
     authDomain: "lumenni-estetica-autentication.firebaseapp.com",
     databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
@@ -58,6 +58,7 @@
     measurementId: "G-B433W9ZE86"
   };
 
+  // Inicializando o Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();

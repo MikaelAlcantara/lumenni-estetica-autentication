@@ -12,6 +12,35 @@
   <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
+
+  <script>
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
+    authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+    databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
+    projectId: "lumenni-estetica-autentication",
+    storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
+    messagingSenderId: "481878336776",
+    appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
+    measurementId: "G-B433W9ZE86"
+  };
+
+  // Inicializando o Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Verificando a autenticação do usuário
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log("Usuário autenticado:", user.email);
+    } else {
+      console.log("Nenhum usuário autenticado.");
+    }
+  });
+</script>
+
 </head>
 <body>
   <header>
@@ -33,39 +62,5 @@
   <footer>
     <p>Lumenni Estetica Avançada &copy; 2025 - 2026 | Todos os direitos reservados.</p>
   </footer>
-
-  <script>
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    auth.onAuthStateChanged(async user => {
-      if (!user) {
-        alert('Você precisa estar logado para acessar esta página.');
-        window.location.href = 'login.html';
-        return;
-      }
-
-      // Verifica o status do usuário no Firestore
-      const docRef = db.collection('users').doc(user.uid);
-      const doc = await docRef.get();
-
-      if (doc.exists && doc.data().status !== 'aprovado') {
-        alert('Seu cadastro está pendente de aprovação.');
-        await auth.signOut(); // Desloga o usuário pendente
-        window.location.href = 'login.html';
-        return;
-      }
-
-      // Usuário aprovado, mostra o conteúdo do painel
-      console.log('Usuário aprovado:', user.email);
-    });
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      auth.signOut().then(() => {
-        alert('Você saiu da área do cliente.');
-        window.location.href = 'login.html';
-      });
-    });
-  </script>
 </body>
 </html>

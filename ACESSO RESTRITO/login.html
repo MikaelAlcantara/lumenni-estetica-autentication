@@ -6,12 +6,11 @@
   <title>Área do Cliente - Login</title>
   <link rel="stylesheet" href="../styles/variaveis.css" />
   <link rel="stylesheet" href="login.css">
+  
   <!-- Firebase SDKs -->
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
-
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script> <!-- Firebase App -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script> <!-- Firebase Authentication -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script> <!-- Firebase Firestore -->
 </head>
 <body>
   <header>
@@ -22,7 +21,7 @@
   </header>
 
   <div class="background">
-    <img src="../src/img/background-fundo_1520x625.png" alt="#">
+    <img src="../src/img/background-fundo_1520x625.png" alt="background">
   </div>
 
   <main>
@@ -45,58 +44,52 @@
     <p>Lumenni Estetica Avançada &copy; 2025 - 2026 | Todos os direitos reservados.</p>
   </footer>
 
- <script>
-  // Configuração do Firebase
-   const firebaseConfig = {
-    apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
-    authDomain: "lumenni-estetica-autentication.firebaseapp.com",
-    databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
-    projectId: "lumenni-estetica-autentication",
-    storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
-    messagingSenderId: "481878336776",
-    appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
-    measurementId: "G-B433W9ZE86"
-  };
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
+      authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+      databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
+      projectId: "lumenni-estetica-autentication",
+      storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
+      messagingSenderId: "481878336776",
+      appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
+      measurementId: "G-B433W9ZE86"
+    };
 
-  // Inicializando o Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+    // Inicializando o Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-  document.getElementById('login-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
 
-    try {
-      // Tentando autenticar o usuário
-      const userCredential = await auth.signInWithEmailAndPassword(email, password);
-      const user = userCredential.user;
+      try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
 
-      // Verifica o status do usuário no Firestore
-      const docRef = db.collection('users').doc(user.uid);
-      const doc = await docRef.get();
+        // Verifica o status do usuário no Firestore
+        const docRef = db.collection('users').doc(user.uid);
+        const doc = await docRef.get();
 
-      if (doc.exists) {
-        const data = doc.data();
-        if (data.status !== 'aprovado') {
-          alert('Seu cadastro ainda está pendente de aprovação.');
-          await auth.signOut();  // Desloga o usuário
-          return;
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.status !== 'aprovado') {
+            alert('Seu cadastro está pendente de aprovação.');
+            await auth.signOut();
+            return;
+          }
+          // Redireciona para o painel
+          window.location.href = 'painel-paciente.html';
         }
 
-        // Usuário aprovado, redireciona para o painel
-        window.location.href = 'painel-paciente.html';
-      } else {
-        alert('Usuário não encontrado no Firestore.');
-        await auth.signOut();  // Desloga o usuário
+      } catch (error) {
+        alert('Erro ao fazer login: ' + error.message);
       }
-
-    } catch (error) {
-      alert('Erro ao fazer login: ' + error.message);
-    }
-  });
-</script>
-
+    });
+  </script>
 </body>
 </html>

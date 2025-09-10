@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Área do Cliente - Cadastro</title>
+  <link rel="stylesheet" href="../styles/variaveis.css" />
+  <link rel="stylesheet" href="cadastro.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="../src/img/LOGO MENU LUMENNI.png" alt="Logo lumenni estetica avançada">
+      <button onclick="window.location.href='../index.html'">Voltar</button>
+    </nav>
+  </header>
+
+  <div class="background">
+    <img src="../src/img/background-fundo_1520x625.png" alt="">
+  </div>
+
+  <main>
+    <div>
+      <h1>Cadastro</h1>
+      <form id="cadastro-form">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="password2">Confirme a Senha:</label>
+        <input type="password" id="password2" name="password2" required />
+
+        <button type="submit">Cadastrar</button>
+      </form>
+
+      <p>Já tem conta? <a href="login.html">Faça login aqui</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Lumenni Estetica Avançada &copy; 2025 - 2026 | Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Config Firebase mesmo do login
+    const firebaseConfig = {
+      apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
+      authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+      projectId: "lumenni-estetica-autentication",
+      storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
+      messagingSenderId: "481878336776",
+      appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
+      measurementId: "G-B433W9ZE86"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    document.getElementById('cadastro-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const nome = e.target.nome.value;
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const password2 = e.target.password2.value;
+
+      if (password !== password2) {
+        alert('As senhas não coincidem!');
+        return;
+      }
+
+      try {
+        // Cria usuário no Firebase Auth
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Salva dados adicionais no Firestore como id
+        await db.collection('users').doc(user.uid).set({
+          nome: nome,
+          email: email,
+          pontosFidelidade: 600,
+          avaliacoesMedia: 4.8,
+          procedimentosRealizados: 3,
+          proximoAgendamento: '15/10/2023 - 14:30'
+        });
+
+        alert(`Cadastro realizado para: ${nome}`);
+
+        // Redirecionamento
+        window.location.href = 'login.html';
+
+      } catch (error) {
+        alert('Erro no cadastro: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

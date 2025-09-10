@@ -1,0 +1,36 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+@font-face {
+  font-family: "Marcellus";
+  src: url('../presets/Marcellus/Marcellus-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+:root {
+--cacauintenso-color: #4E3B31;
+--cacau-claro-color: #D7C9C2;
+--cacau-escuro-color: #3B2A25;
+--cacau-acento-color: #A65E2E;
+--cacau-acento2-color: #774c2f;
+--cacau-light-color: #713c18;
+--cacau-claro-acento-color: #c77c49;
+--cacau-fundo-color: #F9F5F2;
+--ouropuro-color: #BF9861;
+--banhodesol-color: #F1DA88;
+--areiasserena-color: #cabaa0;
+--luzdemarfim-color: #eeead0;
+--background-color: #f5f4f0;
+--marrom-claro-color: #824924;
+--marrom-medio-color: #b8784e;
+--texto-escuro: #333;
+--texto-claro: #777;
+--sucesso: green;
+--confirmado: #4caf50;
+--agendado: #ffa500;
+};
+
+
+

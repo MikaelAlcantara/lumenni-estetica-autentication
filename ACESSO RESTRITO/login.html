@@ -44,55 +44,42 @@
   </footer>
 
   <script>
-    // Configuração do Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
-      authDomain: "lumenni-estetica-autentication.firebaseapp.com",
-      databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
-      projectId: "lumenni-estetica-autentication",
-      storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
-      messagingSenderId: "481878336776",
-      appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
-      measurementId: "G-B433W9ZE86"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBV3ny1x2Y_JXylVspt797G5p56zCJ-Gco",
+    authDomain: "lumenni-estetica-autentication.firebaseapp.com",
+    databaseURL: "https://lumenni-estetica-autentication-default-rtdb.firebaseio.com",
+    projectId: "lumenni-estetica-autentication",
+    storageBucket: "lumenni-estetica-autentication.firebasestorage.app",
+    messagingSenderId: "481878336776",
+    appId: "1:481878336776:web:b808b922b64026c7f8b8bd",
+    measurementId: "G-B433W9ZE86"
+  };
 
-    // Inicializa Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();  // Acesso ao Firestore
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-    // Evento do formulário de login
-    document.getElementById('login-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const email = e.target.email.value;
-      const password = e.target.password.value;
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-      try {
-        // Fazendo login
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        const user = userCredential.user;
+    try {
+      console.log("Tentando fazer login com o email:", email);
+      const userCredential = await auth.signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      console.log("Login bem-sucedido:", user.email);
 
-        // Verifica status do usuário no Firestore
-        const docRef = db.collection('users').doc(user.uid);
-        const doc = await docRef.get();
+      // Redireciona para o painel se o login for bem-sucedido
+      window.location.href = 'painel-paciente.html';
 
-        if (doc.exists) {
-          const data = doc.data();
-          if (data.status !== 'aprovado') {
-            alert('Seu cadastro ainda está pendente de aprovação. Aguarde contato.');
-            await auth.signOut(); // Desloga o usuário pendente
-            return;
-          }
-          // Se aprovado, redireciona para o painel
-          window.location.href = 'painel-paciente.html';
-        } else {
-          alert('Dados do usuário não encontrados.');
-          await auth.signOut();  // Desloga o usuário
-        }
-      } catch (error) {
-        alert('Erro ao fazer login: ' + error.message);
-      }
-    });
-  </script>
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      alert('Erro ao fazer login: ' + error.message);
+    }
+  });
+</script>
+
+
 </body>
 </html>
